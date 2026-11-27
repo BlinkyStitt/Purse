@@ -1,20 +1,19 @@
+name: Test
+
 on:
-  push:  # NOTE: All branches (but checks concurrency)
+  push:
+    branches: [main]
   pull_request:
     branches: [main]
 
-concurrency:
-  group: ${{ github.ref }}
-  cancel-in-progress: true
+permissions: {}
 
-name: Test
+concurrency:
+  group: pr-ci-test.yaml-${{ github.event_name }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
 
 jobs:
   functional:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: ApeWorX/github-action@v3
-    - run: ape compile --size
-    - uses: foundry-rs/foundry-toolchain@v1
-    - run: ape test -s --gas --coverage
+    permissions:
+      contents: read
+    uses: BlinkyStitt/Purse/.github/workflows/test-reviewed-linux.yaml@9ffb9dbf2b2ab0a5b1fa7fa7bafa493d4a1531c7
