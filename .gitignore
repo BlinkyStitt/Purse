@@ -9,3 +9,6 @@ build/
 .pytest_cache
 .python-version
 __pycache__
+
+# Local Python package build metadata.
+*.egg-info/

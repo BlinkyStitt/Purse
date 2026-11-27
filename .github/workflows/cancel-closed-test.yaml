@@ -9,7 +9,7 @@ permissions: {}
 
 # Share only this validation workflow's PR slot, including merged closes.
 concurrency:
-  group: "${{ github.event.number && format('refs/pull/{0}/merge', github.event.number) || format('unknown-close-{0}', github.run_id) }}"
+  group: "pr-ci-test.yaml-pull_request-${{ github.event.number || format('unknown-close-{0}', github.run_id) }}"
   cancel-in-progress: true
 
 jobs:
