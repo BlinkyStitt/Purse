@@ -49,3 +49,17 @@ This project is written in [Vyper](https://docs.vyperlang.org/en/stable/).
 
 This project uses [`ape`](https://apeworx.io/framework) to compile, test and script it.
 See [Installation Guide](https://docs.apeworx.io/ape/latest/userguides/quickstart#installation) for help installing it.
+
+The CI environment uses Python 3.11 and the Vyper version in the contracts' pragmas.
+Install its Python package so the compiler can resolve the installed Snekmate sources;
+the standalone Vyper binary cannot find this environment's Python packages.
+
+```sh
+python -m pip install -r requirements.txt
+ape plugins install .
+ape compile --size
+ape test --network ethereum:local:foundry -s --gas --coverage
+```
+
+Install Foundry before running the tests. The explicit network above uses a local
+Anvil chain.
